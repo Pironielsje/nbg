@@ -6,7 +6,7 @@ module.exports.run = async(client, msg, args) => {
         .setTitle("Pong!")
         .setDescription(`Api response time: ${Date.now() - msg.createdTimestamp}ms.\nBot Latency: ${Math.floor(Math.round(client.ws.ping))}ms`)
         .setColor("RANDOM")
-        .setFooter(`Requested by: ${msg.author.username}`, msg.author.displayAvatarUrl())
+        .setFooter(`Requested by: ${msg.author.username}`, msg.author.displayAvatarURL())
         .setTimestamp()
 
     msg.reply(`Pinging...`).then(message => {
