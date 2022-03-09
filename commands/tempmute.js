@@ -1,3 +1,5 @@
+const ms = require('ms')
+
 module.exports.run = async(client, msg, args) => {
 
     if(!msg.member.permissions.has('MANAGE_ROLES')) return msg.reply(`You need the **MANAGE_ROLES** permission to do this!`)
@@ -21,12 +23,7 @@ module.exports.run = async(client, msg, args) => {
 
     if(!reason) reason = "No reason specified"
 
-    let seconds = Math.floor(time / 1000);
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(minutes / 60);
-    let days = Math.floor(hours / 24);
-
-    msg.reply(`I've unmuted ${target} for ${reason} for: ${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds. (${time} milliseconds)`)
+    msg.reply(`I've unmuted ${target} for ${ms(time, {long: true})}`)
 
     setTimeout(() => {
         target.roles.add('951084203632640031')
