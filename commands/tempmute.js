@@ -25,7 +25,7 @@ module.exports.run = async(client, msg, args) => {
 
     if(!reason) reason = "No reason specified"
 
-    msg.reply(`I've unmuted ${target} for ${ms(time, {long: true})}`)
+    msg.reply(`I've unmuted ${target} for ${ms(parseInt(time), {long: true})}`)
 
     setTimeout(() => {
         target.roles.add('951084203632640031')
