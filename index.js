@@ -1,4 +1,4 @@
-const {Client, Collection, MessageSelectMenu} = require('discord.js')
+const { Client, Collection, MessageSelectMenu } = require('discord.js')
 const config = require('./config.json')
 const fs = require('fs')
 
@@ -11,11 +11,11 @@ client.aliases = new Collection()
 
 const cmdFiles = fs.readdirSync('./commands').filter(f => f.endsWith('.js'))
 
-for(const file of cmdFiles) {
+for (const file of cmdFiles) {
 
     const command = require(`./commands/${file}`)
 
-    for(const alias of command.help.aliases) {
+    for (const alias of command.help.aliases) {
         client.aliases.set(alias, command)
     }
 
@@ -31,10 +31,10 @@ client.once(`ready`, () => {
 })
 
 client.on(`messageCreate`, async(msg) => {
-    if(msg.author.bot) return
+    if (msg.author.bot) return
 
-    if(!msg.content.startsWith(config.prefix.toLowerCase())) return
-    
+    if (!msg.content.startsWith(config.prefix.toLowerCase())) return
+
     const msgArray = msg.content.split(" ")
 
     const command = msgArray[0]
@@ -43,7 +43,7 @@ client.on(`messageCreate`, async(msg) => {
 
     const cmdData = client.commands.get(command.slice(config.prefix.length).toLowerCase()) || client.aliases.get(command.slice(config.prefix.length).toLowerCase())
 
-    if(!cmdData) return
+    if (!cmdData) return
 
     try {
         cmdData.run(client, msg, args)
@@ -51,6 +51,14 @@ client.on(`messageCreate`, async(msg) => {
         console.log(error)
         msg.reply(`Something went wrong.`)
     }
+
+})
+
+client.on('guildMemberAdd', async(member) => {
+
+    const channel = member.guild.channels.cache.find(c => c.name === "👋»-›welcome")
+
+    channel.send(`Welcome, <@${member.id}>, to Niels's Basement! Check <#950762215533838406>, <#950762055344992307> and <#950764786965168208> and have fun!`)
 
 })
 
