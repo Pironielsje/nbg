@@ -7,9 +7,7 @@ module.exports.run = async(client, msg, args) => {
 
         let amount = args[0]
 
-        amount += 1;
-
-        msg.channel.bulkDelete(amount).then(() => {
+        msg.channel.bulkDelete(amount + 1).then(() => {
 
             msg.channel.send(`Deleted ${amount} message(s)!`).then(m => {
                 setTimeout(() => {
