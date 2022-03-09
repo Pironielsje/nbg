@@ -8,6 +8,8 @@ module.exports.run = async(client, msg, args) => {
 
     const mention = msg.mentions.users.first()
 
+    if(!mention) return msg.reply(`Please mention someone first!`)
+
     const target = msg.guild.members.cache.get(mention.id)
 
     if(!target) return msg.reply(`Sorry I couldn't find that person!`)
