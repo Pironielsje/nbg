@@ -10,10 +10,10 @@ module.exports.run = async(client, msg, args) => {
 
     if(!target) return msg.reply(`Sorry I couldn't find that person!`)
 
-    if(!role) msg.reply(`You don't have a muted role!`)
+    if(!target.roles.has(role)) return msg.reply(`This user isn't muted!`)
 
-    target.roles.remove('951084203632640031')
-    target.roles.add(role)
+    target.roles.add('951084203632640031')
+    target.roles.remove(role)
 
     let reason = args.slice(1).join(" ")
 
@@ -24,6 +24,6 @@ module.exports.run = async(client, msg, args) => {
 }
 
 module.exports.help = {
-    name: "mute",
+    name: "unmute",
     aliases: []
 }
