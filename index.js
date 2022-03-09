@@ -25,7 +25,7 @@ for (const file of cmdFiles) {
 
 }
 
-client.once(`ready`, () => {
+client.on(`ready`, () => {
     console.log(`Ja ben er!`)
     client.user.setActivity(`There are ${client.guilds.cache.get('950761668898594846').memberCount} kids in this basement!`)
 
