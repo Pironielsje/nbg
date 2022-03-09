@@ -1,4 +1,4 @@
-const { Client, Collection, Intents, MessageEmbed } = require('discord.js')
+const { Client, Collection, Intents, MessageEmbed, MessageActionRow } = require('discord.js')
 const config = require('./config.json')
 const fs = require('fs')
 const { isFunction } = require('util')
@@ -119,7 +119,8 @@ client.on('interactionCreate', async(interaction) => {
             .setDescription(`Don't worry! Staff's on it's way!`)
             .setTitle(`🚫 Report ticket!`)
 
-          const row = new MessageActionRow().addComponents(
+          const row = new MessageActionRow()
+          .addComponents(
             new MessageButton()
               .setCustomId("close")
               .setLabel("Close ticket")
