@@ -139,7 +139,7 @@ client.on('interactionCreate', async(interaction) => {
 
     if(interaction.customId === "question") {
         const role = interaction.guild.roles.cache.get("950767453946929213");
-        const mainRole = interaction.guild.roles.cache.get("942106316091060295");
+        const mainRole = interaction.guild.roles.cache.get("951084203632640031");
     
         if (
           interaction.guild.channels.cache.find(
