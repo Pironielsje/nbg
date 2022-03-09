@@ -5,25 +5,30 @@ module.exports.run = async(client, msg, args) => {
 
     if (parseInt(args[0])) {
 
-        let amount = args[0]
+        let amount = parseInt(args[0]) + 1;
 
-        msg.channel.bulkDelete(amount + 1).then(() => {
+        msg.channel.bulkDelete(amount).then(() => {
 
             msg.channel.send(`Deleted ${amount} message(s)!`).then(m => {
-                setTimeout(() => {
-                    m.delete()
-                }, 2000);
+                if(parseInt(args[0]) == 1) {
+                    msg.reply(`I deleted 1 message.`).then(mesage => {
+                        setTimeout(() => {
+                            mesage.delete()
+                        }, 3000);
+                    })
+                } else {
+                    msg.reply(`I deleted ${parseInt(args[0])} messages!`).then(mesage => {
+                        setTimeout(() => {
+                            mesage.delete()
+                        }, 3000);
+                    })
+                }
+            }).catch(err => {
+                console.log(err)
+                msg.reply(`Give me a number above 0 and below 100!`)
             })
 
         })
-
-    } else if (parseInt(args[0] >= 100)) {
-
-        msg.reply(`99 is the maximum number of messages you can delete.`)
-
-    } else if (parseInt(args[0]) <= 0) {
-
-        msg.reply(`You can't delete less than 1 message!`)
 
     } else {
         return msg.reply(`That isn't a valid number!`)
