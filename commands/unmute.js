@@ -10,7 +10,7 @@ module.exports.run = async(client, msg, args) => {
 
     if(!target) return msg.reply(`Sorry I couldn't find that person!`)
 
-    if(!target.roles.has(role)) return msg.reply(`This user isn't muted!`)
+    if(!target.roles.cache.has(role)) return msg.reply(`This user isn't muted!`)
 
     target.roles.add('951084203632640031')
     target.roles.remove(role)
