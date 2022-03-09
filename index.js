@@ -129,8 +129,9 @@ client.on('interactionCreate', async(interaction) => {
           );
 
           c.send({
-            content: `<@${interaction.user.id}> <@&${role}>`,
+            content: `<@${interaction.user.id}> ${role}`,
             components: [row],
+            embeds: [ticket]
           });
         });
     }
