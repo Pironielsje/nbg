@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require("discord.js")
+const { MessageEmbed, MessageActionRow, MessageSelectMenu, Message, MessageButton } = require("discord.js")
 
 module.exports.run = async(client, msg, args) => {
 
@@ -9,21 +9,17 @@ module.exports.run = async(client, msg, args) => {
 
     const row = new MessageActionRow()
         .addComponents(
-            new MessageSelectMenu()
-                .setCustomId("select")
-                .setPlaceholder("Nothing selected")
-                .addOptions([
-                    {
-                        label: "🚫 Report",
-                        description: "Report a player via a ticket!",
-                        value: "report"
-                    },
-                    {
-                        label: '❓ Question',
-                        description: 'Ask a questrion via a ticket!',
-                        value: 'question',
-                    },
-                ])
+            new MessageButton()
+                .setCustomId('report')
+                .setLabel("Report")
+                .setEmoji('🚫')
+                .setStyle("SUCCESS")
+        ).addComponents(
+            new MessageButton()
+                .setCustomId('question')
+                .setLabel("Question")
+                .setEmoji('❓')
+                .setStyle("SUCCESS")
         )
 
     msg.channel.send({embeds: [embed], components: [row]})
