@@ -28,6 +28,22 @@ for (const file of cmdFiles) {
 client.once(`ready`, () => {
     console.log(`Ja ben er!`)
     client.user.setActivity(`There are ${client.users.cache.size} kids in this basement!`)
+
+    const updateStatus = () => {
+
+        client.user.setPresence({
+
+            status: "online",
+            activities: [{
+                name: `There are ${client.users.cache.size} kids in this basement!`
+            }]
+
+        })
+
+    }
+
+    setTimeout(updateStatus, 30000);
+
 })
 
 client.on(`messageCreate`, async(msg) => {
