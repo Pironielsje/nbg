@@ -27,7 +27,7 @@ for (const file of cmdFiles) {
 
 client.once(`ready`, () => {
     console.log(`Ja ben er!`)
-    client.user.setActivity(`There are ${client.users.cache.size} kids in this basement!`)
+    client.user.setActivity(`There are ${client.guilds.cache.get('950761668898594846').memberCount} kids in this basement!`)
 
     const updateStatus = () => {
 
@@ -35,7 +35,7 @@ client.once(`ready`, () => {
 
             status: "online",
             activities: [{
-                name: `There are ${client.users.cache.size} kids in this basement!`
+                name: `There are ${client.guilds.cache.get('950761668898594846').memberCount} kids in this basement!`
             }]
 
         })
