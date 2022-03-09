@@ -56,7 +56,7 @@ client.on(`messageCreate`, async(msg) => {
 
 client.on('guildMemberAdd', async(member) => {
 
-    const channel = member.guild.channels.cache.find(c => c.name === "👋»-›welcome")
+    const channel = member.guild.channels.cache.find(c => c.id === "950761972603961344")
 
     channel.send(`Welcome, <@${member.id}>, to Niels's Basement! Check <#950762215533838406>, <#950762055344992307> and <#950764786965168208> and have fun!`)
 
