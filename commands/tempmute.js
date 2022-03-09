@@ -21,10 +21,10 @@ module.exports.run = async(client, msg, args) => {
 
     if(!reason) reason = "No reason specified"
 
-    let seconds = time / 1000;
-    let minutes = seconds / 60;
-    let hours = minutes / 60;
-    let days = hours / 24;
+    let seconds = Math.floor(time / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Masth.floor(minutes / 60);
+    let days = Math.floor(hours / 24);
 
     msg.reply(`I've unmuted ${target} for ${reason} for: ${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds. (${time} milliseconds)`)
 
