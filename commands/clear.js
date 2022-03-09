@@ -1,7 +1,7 @@
 module.exports.run = async(client, msg, args) => {
     if (!msg.member.permissions.has("MANAGE_MESSAGES")) return msg.reply(`You don't have the **MANAGE_MESSAGES** permission.`)
 
-    if (args[0]) return msg.reply(`Please specify how much messages to clear`)
+    if (!args[0]) return msg.reply(`Please specify how much messages to clear`)
 
     if (parseInt(args[0])) {
 
