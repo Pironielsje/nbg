@@ -42,7 +42,7 @@ client.once(`ready`, () => {
 
     }
 
-    setTimeout(updateStatus, 30000);
+    setTimeout(updateStatus, 5000);
 
 })
 
