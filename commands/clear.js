@@ -11,15 +11,15 @@ module.exports.run = async(client, msg, args) => {
 
             msg.channel.send(`Deleted ${amount} message(s)!`).then(m => {
                 if(parseInt(args[0]) == 1) {
-                    msg.reply(`I deleted 1 message.`).then(mesage => {
+                    msg.reply(`I deleted 1 message.`).then(m => {
                         setTimeout(() => {
-                            mesage.delete()
+                            m.delete()
                         }, 3000);
                     })
                 } else {
-                    msg.reply(`I deleted ${parseInt(args[0])} messages!`).then(mesage => {
+                    msg.reply(`I deleted ${parseInt(args[0])} messages!`).then(m => {
                         setTimeout(() => {
-                            mesage.delete()
+                            m.delete()
                         }, 3000);
                     })
                 }
