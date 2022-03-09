@@ -1,6 +1,7 @@
-const { Client, Collection, Intents } = require('discord.js')
+const { Client, Collection, Intents, MessageEmbed } = require('discord.js')
 const config = require('./config.json')
 const fs = require('fs')
+const { isFunction } = require('util')
 
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]
@@ -62,6 +63,155 @@ client.on('guildMemberAdd', async(member) => {
     const channel = guild.channels.cache.get('950761972603961344')
 
     channel.send(`Welcome, <@${member.id}>, to Niels's Basement! Check <#950762215533838406>, <#950762055344992307> and <#950764786965168208> and have fun!`)
+
+    member.roles.add('951084203632640031')
+
+})
+
+client.on('interactionCreate', async(interaction) => {
+
+    if(interaction.customId === "report") {
+    const role = interaction.guild.roles.cache.get("950767453946929213");
+    const mainRole = interaction.guild.roles.cache.get("942106316091060295");
+
+    if (
+      interaction.guild.channels.cache.find(
+        (c) => c.name === `ticket-${interaction.user.username}-report`
+      )
+    ) {
+      return interaction.reply({
+        content: "You already have an open ticket!",
+        ephemeral: true,
+      });
+    } else {
+      interaction.guild.channels
+        .create(`ticket-${interaction.user.username}-report`, {
+          parent: "951176916742848562",
+          topic: `${interaction.user.username}'s ticket`,
+          permissionOverwrites: [
+            {
+              id: interaction.user.id,
+              allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"],
+            },
+            {
+              id: client.user.id,
+              allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "EMBED_LINKS", "ATTACH_FILES"],
+            },
+            {
+              id: role,
+              allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "EMBED_LINKS", "ATTACH_FILES"],
+            },
+            {
+              id: mainRole,
+              deny: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+            },
+          ],
+          type: "GUILD_TEXT",
+        })
+        .then((c) => {
+          interaction.reply({
+            content: `Your ticket is created! <#${c.id}>`,
+            ephemeral: true,
+          });
+
+          const ticket = new MessageEmbed()
+            .setColor("AQUA")
+            .setDescription(`Don't worry! Staff's on it's way!`)
+            .setTitle(`🚫 Report ticket!`)
+
+          const row = new MessageActionRow().addComponents(
+            new MessageButton()
+              .setCustomId("close")
+              .setLabel("Close ticket")
+              .setEmoji("🔒")
+              .setStyle("DANGER")
+          );
+
+          c.send({
+            content: `<@${interaction.user.id}> <@&${role}>`,
+            components: [row],
+          });
+        });
+    }
+    }
+
+    if(interaction.customId === "question") {
+        const role = interaction.guild.roles.cache.get("950767453946929213");
+        const mainRole = interaction.guild.roles.cache.get("942106316091060295");
+    
+        if (
+          interaction.guild.channels.cache.find(
+            (c) => c.name === `ticket-${interaction.user.username}-question`
+          )
+        ) {
+          return interaction.reply({
+            content: "You already have an open ticket!",
+            ephemeral: true,
+          });
+        } else {
+          interaction.guild.channels
+            .create(`ticket-${interaction.user.username}-question`, {
+              parent: "951176916742848562",
+              topic: `${interaction.user.username}'s ticket`,
+              permissionOverwrites: [
+                {
+                  id: interaction.user.id,
+                  allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"],
+                },
+                {
+                  id: client.user.id,
+                  allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "EMBED_LINKS", "ATTACH_FILES"],
+                },
+                {
+                  id: role,
+                  allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "EMBED_LINKS", "ATTACH_FILES"],
+                },
+                {
+                  id: mainRole,
+                  deny: ["SEND_MESSAGES", "VIEW_CHANNEL"],
+                },
+              ],
+              type: "GUILD_TEXT",
+            })
+            .then((c) => {
+              interaction.reply({
+                content: `Your ticket is created! <#${c.id}>`,
+                ephemeral: true,
+              });
+    
+              const ticket = new MessageEmbed()
+                .setColor("AQUA")
+                .setDescription(`Don't worry! Staff's on it's way!`)
+                .setTitle(`❓ Question ticket!`)
+    
+              const row = new MessageActionRow().addComponents(
+                new MessageButton()
+                  .setCustomId("close")
+                  .setLabel("Close ticket")
+                  .setEmoji("🔒")
+                  .setStyle("DANGER")
+              );
+    
+              c.send({
+                content: `<@${interaction.user.id}> <@&${role}>`,
+                components: [row],
+              });
+            });
+        }
+        }
+
+    if(interaction.customId === "close") {
+        const closed = new MessageEmbed()
+            .setTitle(`Closed`)
+            .setDescription(`Ticket closed. Channel will be deleted in 5 seconds`)
+            .setColor('AQUA')
+
+        interaction.channel.send({embeds: [closed]})
+
+        setTimeout(() => {
+            interaction.channel.delete()
+        }, 5000);
+    }
 
 })
 
