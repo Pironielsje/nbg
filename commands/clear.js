@@ -5,7 +5,9 @@ module.exports.run = async(client, msg, args) => {
 
     if (parseInt(args[0])) {
 
-        let amount = args[0] + 1;
+        let amount = args[0]
+
+        amount += 1;
 
         msg.channel.bulkDelete(amount).then(() => {
 
