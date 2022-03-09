@@ -9,15 +9,14 @@ module.exports.run = async(client, msg, args) => {
 
         msg.channel.bulkDelete(amount).then(() => {
 
-            msg.channel.send(`Deleted ${amount} message(s)!`).then(m => {
                 if(parseInt(args[0]) == 1) {
-                    msg.reply(`I deleted 1 message.`).then(m => {
+                    msg.channel.send(`I deleted 1 message.`).then(m => {
                         setTimeout(() => {
                             m.delete()
                         }, 3000);
                     })
                 } else {
-                    msg.reply(`I deleted ${parseInt(args[0])} messages!`).then(m => {
+                    msg.channel.send(`I deleted ${parseInt(args[0])} messages!`).then(m => {
                         setTimeout(() => {
                             m.delete()
                         }, 3000);
@@ -26,7 +25,6 @@ module.exports.run = async(client, msg, args) => {
             }).catch(err => {
                 console.log(err)
                 msg.reply(`Give me a number above 0 and below 100!`)
-            })
 
         })
 
