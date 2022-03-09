@@ -1,4 +1,4 @@
-const { Client, Collection, Intents, MessageEmbed, MessageActionRow } = require('discord.js')
+const { Client, Collection, Intents, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js')
 const config = require('./config.json')
 const fs = require('fs')
 const { isFunction } = require('util')
