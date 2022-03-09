@@ -1,9 +1,9 @@
-const { Client, Collection, MessageSelectMenu } = require('discord.js')
+const { Client, Collection, Intents } = require('discord.js')
 const config = require('./config.json')
 const fs = require('fs')
 
 const client = new Client({
-    intents: ["GUILDS", "GUILD_MESSAGES"]
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]
 })
 
 client.commands = new Collection()
