@@ -303,7 +303,7 @@ client.on('interactionCreate', async(interaction) => {
 
 client.on("messageDelete", (message) => {
 
-  if(!message.author.bot)
+  if(!message.author.bot) return
 
   const channel = message.guild.channels.cache.get('951510334601052231')
 
