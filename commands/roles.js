@@ -45,7 +45,7 @@ module.exports.run = async(client, msg, args) => {
             new MessageSelectMenu()
             .setCustomId("roles")
             .setMinValues(0)
-            .setMaxValues(10)
+            .setMaxValues(9)
             .setPlaceholder("No roles selected.")
             .addOptions(options)
         )
