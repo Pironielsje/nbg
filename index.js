@@ -2,6 +2,8 @@ const { Client, Collection, Intents, MessageEmbed, MessageActionRow, MessageButt
 const config = require('./config.json')
 const fs = require('fs')
 const { isFunction } = require('util')
+const swearwords = require('./data/swearwords.json')
+const lvlFile = require('./data/levels.json')
 
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]
@@ -35,25 +37,45 @@ client.on(`ready`, () => {
 client.on(`messageCreate`, async(msg) => {
     if (msg.author.bot) return
 
-    if (!msg.content.startsWith(config.prefix.toLowerCase())) return
-
     const msgArray = msg.content.split(" ")
 
     const command = msgArray[0]
 
-    const args = msgArray.slice(1)
+    if (!msg.content.toLowerCase().startsWith(config.prefix)) {
 
-    const cmdData = client.commands.get(command.slice(config.prefix.length).toLowerCase()) || client.aliases.get(command.slice(config.prefix.length).toLowerCase())
+      RandomXp(msg);
 
-    if (!cmdData) return
+      let message = msg.content.toLowerCase()
 
-    try {
-        cmdData.run(client, msg, args)
-    } catch (error) {
-        console.log(error)
-        msg.reply(`Something went wrong.`)
+      for(let i = 0; i < swearwords.length; i++) {
+        const swearword = swearwords[i]
+
+        if(message.includes(swearword.toLowerCase)) {
+          msg.delete();
+          msg.channel.send(`<@${msg.author.id}> you can't say that!`).then(m => {
+            setTimeout(() => {
+              m.delete()
+            }, 2000);
+          })
+        }
+
+      }
+
+    } else {  
+      const args = msgArray.slice(1)
+  
+      const cmdData = client.commands.get(command.slice(config.prefix.length).toLowerCase()) || client.aliases.get(command.slice(config.prefix.length).toLowerCase())
+  
+      if (!cmdData) return
+  
+      try {
+          cmdData.run(client, msg, args)
+      } catch (error) {
+          console.log(error)
+          msg.reply(`Something went wrong.`)
+      }
+  
     }
-
 })
 
 client.on('guildMemberAdd', async(member) => {
@@ -278,5 +300,86 @@ client.on('interactionCreate', async(interaction) => {
     }
 
 })
+
+client.on("messageDelete", (message) => {
+
+  if(!message.author.bot)
+
+  const channel = message.guild.channels.cache.get('951510334601052231')
+
+  const embed = new MessageEmbed()
+    .setTitle("Message Deleted")
+    .setDescription(`Channel: ${message.channel}\nMessage content: **${message.content}**\nAuthor: **<@${message.author.id}>**`)
+    .setColor("RED")
+
+  channel.send({embeds: [embed]})
+
+})
+
+client.on("messageUpdate", (oldMessage, newMessage) => {
+
+  if(!message.author.bot)
+
+  const channel = message.guild.channels.cache.get('951510334601052231')
+
+  const embed = new MessageEmbed()
+    .setTitle("Message Edited")
+    .setDescription(`Channel: ${message.channel}\nOld message: ${oldMessage.content}\nNew message: **${newMessage.content}**\nAuthor: **<@${message.author.id}>**`)
+    .setColor("YELLOW")
+
+  channel.send({embeds: [embed]})
+
+})
+
+client.on("channelDelete", (delChannel) => {
+
+  if(!message.author.bot)
+
+  const channel = message.guild.channels.cache.get('951510334601052231')
+
+  const embed = new MessageEmbed()
+    .setTitle("Channel Deleted")
+    .setDescription(`Channel Name: ${delChannel}`)
+    .setColor("RED")
+
+  channel.send({embeds: [embed]})
+
+})
+
+function RandomXp(msg) {
+
+  var randNumber = Math.floor(Math.random() * 10) + 1;
+
+  var idUser = msg.author.id;
+
+  if(!lvlFile[idUser]) {
+    lvlFile[idUser] = {
+      xp: 0,
+      lvl: 0
+    }
+  }
+
+  lvlFile[idUser].xp += randNumber
+
+  var lvlUser = lvlFile[idUser].lvl
+  var xpUser = lvlFile[idUser].xp
+
+  var nextLvlXp = lvlUser * 300
+
+  if(nextLvlXp == 0) nextLvlXp = 100
+
+  if(xpUser >= nextLvlXp){
+
+    lvlFile[idUser].level += 1
+
+    msg.channel.send(`Congratulations <@${msg.author.id}>! You just leveled up to lvl ${lvlFile[idUser].level}!`)
+
+    fs.writeFile("./data/levels.json", JSON.stringify(lvlFile), err => {
+      if(err) console.log(err)
+    })
+
+  }
+
+}
 
 client.login(process.env.token)
