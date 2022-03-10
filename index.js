@@ -218,63 +218,63 @@ client.on('interactionCreate', async(interaction) => {
         const nsfwRole = interaction.guild.roles.cache.get("951401760935792641")
 
         interaction.member.roles.add(nsfwRole)
-        interaction.reply("Gave you the nsfw role!")
+        interaction.reply({ content: "Gave you the nsfw role!", ephemeral: true })
     }
 
     if (interaction.customId === "single") {
         const nsfwRole = interaction.guild.roles.cache.get("951401851784400947")
 
         interaction.member.roles.add(nsfwRole)
-        interaction.reply("Gave you the single role!")
+        interaction.reply({ content: "Gave you the single role!", ephemeral: true })
     }
 
     if (interaction.customId === "inlove") {
         const nsfwRole = interaction.guild.roles.cache.get("951401975994536026")
 
         interaction.member.roles.add(nsfwRole)
-        interaction.reply("Gave you the single role!")
+        interaction.reply({ content: "Gave you the in love role!", ephemeral: true })
     }
 
     if (interaction.customId === "married") {
         const nsfwRole = interaction.guild.roles.cache.get("951402199089557504")
 
         interaction.member.roles.add(nsfwRole)
-        interaction.reply("Gave you the single role!")
+        interaction.reply({ content: "Gave you the married role!", ephemeral: true })
     }
 
     if (interaction.customId === "hehim") {
         const nsfwRole = interaction.guild.roles.cache.get("951402988411424788")
 
         interaction.member.roles.add(nsfwRole)
-        interaction.reply("Gave you the single role!")
+        interaction.reply({ content: "Gave you the he/him role!", ephemeral: true })
     }
 
     if (interaction.customId === "sheher") {
         const nsfwRole = interaction.guild.roles.cache.get("951403039288352779")
 
         interaction.member.roles.add(nsfwRole)
-        interaction.reply("Gave you the single role!")
+        interaction.reply({ content: "Gave you the she/her role!", ephemeral: true })
     }
 
     if (interaction.customId === "theythem") {
         const nsfwRole = interaction.guild.roles.cache.get("951403094879633438")
 
         interaction.member.roles.add(nsfwRole)
-        interaction.reply("Gave you the single role!")
+        interaction.reply({ content: "Gave you the they/them role!", ephemeral: true })
     }
 
     if (interaction.customId === "announcementping") {
         const nsfwRole = interaction.guild.roles.cache.get("951404076871065600")
 
         interaction.member.roles.add(nsfwRole)
-        interaction.reply("Gave you the single role!")
+        interaction.reply({ content: "Gave you the announcement ping role!", ephemeral: true })
     }
 
     if (interaction.customId === "eventping") {
         const nsfwRole = interaction.guild.roles.cache.get("951404137801732146")
 
         interaction.member.roles.add(nsfwRole)
-        interaction.reply("Gave you the single role!")
+        interaction.reply({ content: "Gave you the event ping role!", ephemeral: true })
     }
 
 })
