@@ -1,53 +1,70 @@
-const { MessageActionRow, MessageSelectMenu } = require("discord.js")
+const { MessageActionRow, MessageSelectMenu, MessageButton } = require("discord.js")
 
 module.exports.run = async(client, msg, args) => {
 
-    const options = [{
-            label: "🔞 nsfw",
-            value: "951401760935792641"
-        },
-        {
-            label: "💔 Single",
-            value: "951401851784400947"
-        },
-        {
-            label: "🥰 In love",
-            value: "951401975994536026"
-        },
-        {
-            label: "💍 Married",
-            value: "951402199089557504"
-        },
-        {
-            label: "👨 He/Him",
-            value: "951402988411424788"
-        },
-        {
-            label: "👩 She/Her",
-            value: "951403039288352779"
-        },
-        {
-            label: "👨👩 They/Them",
-            value: "951403094879633438"
-        },
-        {
-            label: "🔔 Announcement pings",
-            value: "951404076871065600"
-        },
-        {
-            label: "🎉 Event pings",
-            value: "951404137801732146"
-        }
-    ]
-
     const row = new MessageActionRow()
         .addComponents(
-            new MessageSelectMenu()
-            .setCustomId("roles")
-            .setMinValues(0)
-            .setMaxValues(9)
-            .setPlaceholder("No roles selected.")
-            .addOptions(options)
+            new MessageButton()
+            .setCustomId("nsfw")
+            .setLabel("nsfw")
+            .setEmoji("🔞")
+            .setStyle("DANGER")
+        )
+        .addComponents(
+            new MessageButton()
+            .setCustomId("single")
+            .setLabel("Single")
+            .setEmoji("💔")
+            .setStyle("SUCCESS")
+        )
+        .addComponents(
+            new MessageButton()
+            .setCustomId("inlove")
+            .setLabel("In Love")
+            .setEmoji("🥰")
+            .setStyle("SUCCESS")
+        )
+        .addComponents(
+            new MessageButton()
+            .setCustomId("married")
+            .setLabel("Married")
+            .setEmoji("💍")
+            .setStyle("SUCCESS")
+        )
+        .addComponents(
+            new MessageButton()
+            .setCustomId("hehim")
+            .setLabel("He/Him")
+            .setEmoji("👨")
+            .setStyle("SUCCESS")
+        )
+        .addComponents(
+            new MessageButton()
+            .setCustomId("sheher")
+            .setLabel("She/Her")
+            .setEmoji("👩")
+            .setStyle("SUCCESS")
+        )
+        .addComponents(
+            new MessageButton()
+            .setCustomId("theythem")
+            .setLabel("They/Them")
+            .setEmoji("👨👩")
+            .setStyle("SUCCESS")
+        )
+        .addComponents(
+            new MessageButton()
+            .setCustomId("announcementping")
+            .setLabel("Announcement Pings")
+            .setEmoji("🔔")
+            .setStyle("SUCCESS")
+        )
+        .addComponents(
+            new MessageButton()
+            .setCustomId("eventping")
+            .setLabel("Event Pings")
+            .setEmoji("🎉")
+            .setStyle("SUCCESS")
         )
 
     return msg.channel.send({ content: "Select your roles here!", components: [row] })

@@ -214,31 +214,67 @@ client.on('interactionCreate', async(interaction) => {
         }, 5000);
     }
 
-    if (!interaction.isSelectMenu()) return;
+    if (interaction.customId === "nsfw") {
+        const nsfwRole = interaction.guild.roles.cache.get("951401760935792641")
 
-    const { customId, values, member } = interaction
+        interaction.member.roles.add(nsfwRole)
+        interaction.reply("Gave you the nsfw role!")
+    }
 
-    if (customId === "roles") {
+    if (interaction.customId === "single") {
+        const nsfwRole = interaction.guild.roles.cache.get("951401851784400947")
 
-        const component = interaction.component
+        interaction.member.roles.add(nsfwRole)
+        interaction.reply("Gave you the single role!")
+    }
 
-        const removed = component.options.filter((option) => {
-            return !values.includes(option.value)
-        });
+    if (interaction.customId === "inlove") {
+        const nsfwRole = interaction.guild.roles.cache.get("951401975994536026")
 
-        for (var id of removed) {
-            member.roles.remove(id.value)
-        }
+        interaction.member.roles.add(nsfwRole)
+        interaction.reply("Gave you the single role!")
+    }
 
-        for (var id of values) {
-            member.roles.add(id.value)
-        }
+    if (interaction.customId === "married") {
+        const nsfwRole = interaction.guild.roles.cache.get("951402199089557504")
 
-        interaction.reply({
-            content: "I updated your roles!",
-            ephemeral: true
-        })
+        interaction.member.roles.add(nsfwRole)
+        interaction.reply("Gave you the single role!")
+    }
 
+    if (interaction.customId === "hehim") {
+        const nsfwRole = interaction.guild.roles.cache.get("951402988411424788")
+
+        interaction.member.roles.add(nsfwRole)
+        interaction.reply("Gave you the single role!")
+    }
+
+    if (interaction.customId === "sheher") {
+        const nsfwRole = interaction.guild.roles.cache.get("951403039288352779")
+
+        interaction.member.roles.add(nsfwRole)
+        interaction.reply("Gave you the single role!")
+    }
+
+    if (interaction.customId === "theythem") {
+        const nsfwRole = interaction.guild.roles.cache.get("951403094879633438")
+
+        interaction.member.roles.add(nsfwRole)
+        interaction.reply("Gave you the single role!")
+    }
+
+    if (interaction.customId === "announcementping") {
+        const nsfwRole = interaction.guild.roles.cache.get("951404076871065600")
+
+        interaction.member.roles.add(nsfwRole)
+        interaction.reply("Gave you the single role!")
+    }
+
+    if (interaction.customId === "eventping") {
+        const nsfwRole = interaction.guild.roles.cache.get("951404137801732146")
+
+        interaction.member.roles.add(nsfwRole)
+        interaction.reply("Gave you the single role!")
     }
 
 })
