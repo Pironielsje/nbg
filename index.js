@@ -318,7 +318,7 @@ client.on("messageDelete", (message) => {
 
 client.on("messageUpdate", (oldMessage, newMessage) => {
 
-  if(!message.author.bot)
+  if(!message.author.bot) return
 
   const channel = message.guild.channels.cache.get('951510334601052231')
 
@@ -332,8 +332,6 @@ client.on("messageUpdate", (oldMessage, newMessage) => {
 })
 
 client.on("channelDelete", (delChannel) => {
-
-  if(!message.author.bot)
 
   const channel = message.guild.channels.cache.get('951510334601052231')
 
