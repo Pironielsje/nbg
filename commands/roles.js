@@ -34,6 +34,8 @@ module.exports.run = async(client, msg, args) => {
             .setLabel("He/Him")
             .setStyle("SUCCESS")
         )
+
+    const row2 = new MessageActionRow()
         .addComponents(
             new MessageButton()
             .setCustomId("sheher")
