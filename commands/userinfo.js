@@ -8,7 +8,7 @@ module.exports.run = async(client, msg, args) => {
 
     const embed = new MessageEmbed()
         .setTitle(target.username)
-        .setFields({ name: "Joined server at", value: target.joinedAt, inline: true }, { name: "Joined discord at", value: target.createdAt }, { name: "ID", value: target.id, inline: true }, { name: "Roles", value: `${target.roles}` })
+        .setFields({ name: "Joined server at", value: target.joinedAt, inline: true }, { name: "Joined discord at", value: target.createdAt }, { name: "ID", value: target.id, inline: true }, { name: "Roles", value: target.roles })
         .setFooter(`Requested by: ${msg.author.username}`, msg.author.displayAvatarURL())
         .setTimestamp()
         .setColor("RANDOM")
