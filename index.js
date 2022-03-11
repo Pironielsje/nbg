@@ -37,6 +37,22 @@ client.on(`ready`, () => {
 client.on(`messageCreate`, async(msg) => {
     if (msg.author.bot) return
 
+    var message = msg.content.toLowerCase()
+
+    for (let index = 0; index < swearwords.length; index++) {
+        const swearword = swearwords[index];
+
+        if (message.includes(swearword.toLowerCase())) {
+            msg.delete();
+            (await msg.channel.send(`Hey! You can't say that word <@${msg.author.id}>`)).then(m => {
+                setTimeout(() => {
+                    m.delete()
+                }, 2000);
+            })
+        }
+
+    }
+
     const msgArray = msg.content.split(" ")
 
     const command = msgArray[0]
