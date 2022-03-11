@@ -301,7 +301,7 @@ client.on('interactionCreate', async(interaction) => {
 
 client.on("messageDelete", (message) => {
 
-    if (!message.author.bot) return
+    if (message.author.bot) return
 
     const channel = message.guild.channels.cache.get('951510334601052231')
 
@@ -316,7 +316,7 @@ client.on("messageDelete", (message) => {
 
 client.on("messageUpdate", (oldMessage, newMessage) => {
 
-    if (!message.author.bot) return
+    if (message.author.bot) return
 
     const channel = message.guild.channels.cache.get('951510334601052231')
 
