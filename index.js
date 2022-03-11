@@ -43,38 +43,36 @@ client.on(`messageCreate`, async(msg) => {
 
     if (!msg.content.toLowerCase().startsWith(config.prefix)) {
 
-      RandomXp(msg);
+        let message = msg.content.toLowerCase()
 
-      let message = msg.content.toLowerCase()
+        for (let i = 0; i < swearwords.length; i++) {
+            const swearword = swearwords[i]
 
-      for(let i = 0; i < swearwords.length; i++) {
-        const swearword = swearwords[i]
+            if (message.includes(swearword.toLowerCase)) {
+                msg.delete();
+                msg.channel.send(`<@${msg.author.id}> you can't say that!`).then(m => {
+                    setTimeout(() => {
+                        m.delete()
+                    }, 2000);
+                })
+            }
 
-        if(message.includes(swearword.toLowerCase)) {
-          msg.delete();
-          msg.channel.send(`<@${msg.author.id}> you can't say that!`).then(m => {
-            setTimeout(() => {
-              m.delete()
-            }, 2000);
-          })
         }
 
-      }
+    } else {
+        const args = msgArray.slice(1)
 
-    } else {  
-      const args = msgArray.slice(1)
-  
-      const cmdData = client.commands.get(command.slice(config.prefix.length).toLowerCase()) || client.aliases.get(command.slice(config.prefix.length).toLowerCase())
-  
-      if (!cmdData) return
-  
-      try {
-          cmdData.run(client, msg, args)
-      } catch (error) {
-          console.log(error)
-          msg.reply(`Something went wrong.`)
-      }
-  
+        const cmdData = client.commands.get(command.slice(config.prefix.length).toLowerCase()) || client.aliases.get(command.slice(config.prefix.length).toLowerCase())
+
+        if (!cmdData) return
+
+        try {
+            cmdData.run(client, msg, args)
+        } catch (error) {
+            console.log(error)
+            msg.reply(`Something went wrong.`)
+        }
+
     }
 })
 
@@ -303,81 +301,45 @@ client.on('interactionCreate', async(interaction) => {
 
 client.on("messageDelete", (message) => {
 
-  if(!message.author.bot) return
+    if (!message.author.bot) return
 
-  const channel = message.guild.channels.cache.get('951510334601052231')
+    const channel = message.guild.channels.cache.get('951510334601052231')
 
-  const embed = new MessageEmbed()
-    .setTitle("Message Deleted")
-    .setDescription(`Channel: ${message.channel}\nMessage content: **${message.content}**\nAuthor: **<@${message.author.id}>**`)
-    .setColor("RED")
+    const embed = new MessageEmbed()
+        .setTitle("Message Deleted")
+        .setDescription(`Channel: ${message.channel}\nMessage content: **${message.content}**\nAuthor: **<@${message.author.id}>**`)
+        .setColor("RED")
 
-  channel.send({embeds: [embed]})
+    channel.send({ embeds: [embed] })
 
 })
 
 client.on("messageUpdate", (oldMessage, newMessage) => {
 
-  if(!message.author.bot) return
+    if (!message.author.bot) return
 
-  const channel = message.guild.channels.cache.get('951510334601052231')
+    const channel = message.guild.channels.cache.get('951510334601052231')
 
-  const embed = new MessageEmbed()
-    .setTitle("Message Edited")
-    .setDescription(`Channel: ${message.channel}\nOld message: ${oldMessage.content}\nNew message: **${newMessage.content}**\nAuthor: **<@${message.author.id}>**`)
-    .setColor("YELLOW")
+    const embed = new MessageEmbed()
+        .setTitle("Message Edited")
+        .setDescription(`Channel: ${message.channel}\nOld message: ${oldMessage.content}\nNew message: **${newMessage.content}**\nAuthor: **<@${message.author.id}>**`)
+        .setColor("YELLOW")
 
-  channel.send({embeds: [embed]})
+    channel.send({ embeds: [embed] })
 
 })
 
 client.on("channelDelete", (delChannel) => {
 
-  const channel = message.guild.channels.cache.get('951510334601052231')
+    const channel = message.guild.channels.cache.get('951510334601052231')
 
-  const embed = new MessageEmbed()
-    .setTitle("Channel Deleted")
-    .setDescription(`Channel Name: ${delChannel}`)
-    .setColor("RED")
+    const embed = new MessageEmbed()
+        .setTitle("Channel Deleted")
+        .setDescription(`Channel Name: ${delChannel}`)
+        .setColor("RED")
 
-  channel.send({embeds: [embed]})
+    channel.send({ embeds: [embed] })
 
 })
-
-function RandomXp(msg) {
-
-  var randNumber = Math.floor(Math.random() * 10) + 1;
-
-  var idUser = msg.author.id;
-
-  if(!lvlFile[idUser]) {
-    lvlFile[idUser] = {
-      xp: 0,
-      lvl: 0
-    }
-  }
-
-  lvlFile[idUser].xp += randNumber
-
-  var lvlUser = lvlFile[idUser].lvl
-  var xpUser = lvlFile[idUser].xp
-
-  var nextLvlXp = lvlUser * 300
-
-  if(nextLvlXp == 0) nextLvlXp = 100
-
-  if(xpUser >= nextLvlXp){
-
-    lvlFile[idUser].level += 1
-
-    msg.channel.send(`Congratulations <@${msg.author.id}>! You just leveled up to lvl ${lvlFile[idUser].level}!`)
-
-    fs.writeFile("./data/levels.json", JSON.stringify(lvlFile), err => {
-      if(err) console.log(err)
-    })
-
-  }
-
-}
 
 client.login(process.env.token)
