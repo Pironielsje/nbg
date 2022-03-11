@@ -62,7 +62,11 @@ module.exports.run = async(client, msg, args) => {
                                                 setTimeout(() => {
                                                     messag.edit(`Hacking ${target.username}...`).then(message => {
                                                         setTimeout(() => {
-                                                            message.edit(`Email: ${email}. Ip: ${ip}`)
+                                                            message.edit(`Email: ${email}. Ip: ${ip}`).then(messagee => {
+                                                                setTimeout(() => {
+                                                                    messagee.edit(`Totally real and dangerous hack complete!`)
+                                                                }, 2000);
+                                                            })
 
                                                             const embed = new MessageEmbed()
                                                                 .setTitle(`Information of ${target.username}`)
