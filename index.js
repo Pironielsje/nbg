@@ -44,7 +44,7 @@ client.on(`messageCreate`, async(msg) => {
 
         if (message.includes(swearword.toLowerCase())) {
             msg.delete();
-            (await msg.channel.send(`Hey! You can't say that word <@${msg.author.id}>`)).then(m => {
+            msg.channel.send(`Hey! You can't say that word <@${msg.author.id}>`).then(m => {
                 setTimeout(() => {
                     m.delete()
                 }, 2000);
