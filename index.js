@@ -41,39 +41,21 @@ client.on(`messageCreate`, async(msg) => {
 
     const command = msgArray[0]
 
-    if (!msg.content.toLowerCase().startsWith(config.prefix)) {
+    if (!msg.content.toLowerCase().startsWith(config.prefix)) return
 
-        let message = msg.content.toLowerCase()
+    const args = msgArray.slice(1)
 
-        for (let i = 0; i < swearwords.length; i++) {
-            const swearword = swearwords[i]
+    const cmdData = client.commands.get(command.slice(config.prefix.length).toLowerCase()) || client.aliases.get(command.slice(config.prefix.length).toLowerCase())
 
-            if (message.includes(swearword.toLowerCase)) {
-                msg.delete();
-                msg.channel.send(`<@${msg.author.id}> you can't say that!`).then(m => {
-                    setTimeout(() => {
-                        m.delete()
-                    }, 2000);
-                })
-            }
+    if (!cmdData) return
 
-        }
-
-    } else {
-        const args = msgArray.slice(1)
-
-        const cmdData = client.commands.get(command.slice(config.prefix.length).toLowerCase()) || client.aliases.get(command.slice(config.prefix.length).toLowerCase())
-
-        if (!cmdData) return
-
-        try {
-            cmdData.run(client, msg, args)
-        } catch (error) {
-            console.log(error)
-            msg.reply(`Something went wrong.`)
-        }
-
+    try {
+        cmdData.run(client, msg, args)
+    } catch (error) {
+        console.log(error)
+        msg.reply(`Something went wrong.`)
     }
+
 })
 
 client.on('guildMemberAdd', async(member) => {
