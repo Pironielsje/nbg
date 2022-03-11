@@ -4,6 +4,8 @@ module.exports.run = async(client, msg, args) => {
 
     const target = msg.mentions.users.first()
 
+    if (!target) return msg.reply(`Please pong someone to hack!`)
+
     const commonWords = [
         "p0rnz",
         "noodz",

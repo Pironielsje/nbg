@@ -314,13 +314,13 @@ client.on("messageDelete", (message) => {
 
 client.on("messageUpdate", (oldMessage, newMessage) => {
 
-    if (message.author.bot) return
+    if (oldMessage.author.bot) return
 
-    const channel = message.guild.channels.cache.get('951510334601052231')
+    const channel = oldMessage.guild.channels.cache.get('951510334601052231')
 
     const embed = new MessageEmbed()
         .setTitle("Message Edited")
-        .setDescription(`Channel: ${message.channel}\nOld message: ${oldMessage.content}\nNew message: **${newMessage.content}**\nAuthor: **<@${message.author.id}>**`)
+        .setDescription(`Channel: ${oldMessage.channel}\nOld message: ${oldMessage.content}\nNew message: **${newMessage.content}**\nAuthor: **<@${oldMessage.author.id}>**`)
         .setColor("YELLOW")
 
     channel.send({ embeds: [embed] })
