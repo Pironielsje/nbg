@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js')
+
 module.exports.run = async(client, msg, args) => {
 
         let target = msg.mentions.users.first()
