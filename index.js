@@ -1,8 +1,8 @@
 const { Client, Collection, Intents, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js')
 const config = require('./config.json')
 const fs = require('fs')
-const { isFunction } = require('util')
 const swearwords = require('./data/swearwords.json')
+const mongoose = require(`mongoose`)
 
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]
@@ -27,10 +27,18 @@ for (const file of cmdFiles) {
 
 }
 
+mongoose.connect(process.env.mongosrv, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log(`Database connected`)
+}).catch(error => {
+    console.log(error)
+})
+
 client.on(`ready`, () => {
     console.log(`Ja ben er!`)
     client.user.setActivity(`This basement`, { type: "WATCHING" })
-
 })
 
 client.on(`messageCreate`, async(msg) => {
