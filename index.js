@@ -3,7 +3,6 @@ const config = require('./config.json')
 const fs = require('fs')
 const { isFunction } = require('util')
 const swearwords = require('./data/swearwords.json')
-const lvlFile = require('./data/levels.json')
 
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS]
