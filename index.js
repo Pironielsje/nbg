@@ -27,15 +27,6 @@ for (const file of cmdFiles) {
 
 }
 
-mongoose.connect(process.env.mongosrv, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log(`Database connected`)
-}).catch(error => {
-    console.log(error)
-})
-
 client.on(`ready`, () => {
     console.log(`Ja ben er!`)
     client.user.setActivity(`This basement`, { type: "WATCHING" })
